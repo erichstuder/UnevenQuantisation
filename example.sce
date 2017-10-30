@@ -3,6 +3,8 @@ clear
 // stupid scilab workaround
 exec('encode.sce');
 exec('decode.sce');
+exec('calcKinkPoint.sce');
+exec('calcRefPoints.sce');
 
 // init
 relTol = 0.2;
@@ -10,11 +12,15 @@ absTol = 1;
 fixPoint = 5.1;
 data = -30:0.001:30;
 
-//encode
-encData = encode(data, absTol, relTol, fixPoint);
-
-//decode
-decData = decode(encData, absTol, relTol, fixPoint);
+clear encData;
+clear decData;
+for i = 1:length(data)
+    //encode
+    encData(i) = encode(data(i), absTol, relTol, fixPoint);
+    
+    //decode
+    decData(i) = decode(encData(i), absTol, relTol, fixPoint);
+end
 
 //plot
 tolerance = max(absTol, abs(data)*relTol)
