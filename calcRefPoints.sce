@@ -3,13 +3,23 @@ function [refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefP
     //Relative to this point the calculations in both regions are done.
     //The reference point is always on the positive side.
     if abs(fixPoint) <= kinkPoint
-        refPointPositive = fixPoint + floor((kinkPoint - fixPoint)/(2*absTol)) * 2*absTol;
+        refPointPositive = fixPoint + floor((kinkPoint + absTol - fixPoint)/(2*absTol)) * 2*absTol;
     else
-        //calculate the n at the fixPoint with the assumption that refPoint = kinkPoint
-        n_temp = ceil( log(fixPoint * (1-relTol) / kinkPoint ) / log((1+relTol)/(1-relTol) ) );
+        //calculate the n at the fixPoint with the assumption that refPointPositive = kinkPoint-absTol
+        //n_temp = ceil( log(fixPoint * (1-relTol) / (kinkPoint-absTol) ) / log((1+relTol)/(1-relTol) ) );
+        
+        //calc n at the fixpoint
+        n_temp = ceil(-log((kinkPoint + absTol)/fixPoint) / log( (1+relTol) / (1-relTol) ));
+        
         
         //calculate back to the refpoint which is at n=0
-        refPointPositive = fixPoint * ( (1+relTol) / (1-relTol) ) ^ (-n_temp);
+        refPointPositive = fixPoint * ( (1+relTol) / (1-relTol) ) ^ -n_temp;
+        
+        
+        
+        
+        disp(n_temp)
+        disp(refPointPositive)
         clear n_temp
     end
     
