@@ -3,8 +3,11 @@ function optimalFixPoint = calcOptimalFixPoint(minData, maxData, absTol, relTol)
     
     //init
     clear optimalFixPoint
+    optimalFixPoint = -1;
+    clear optimalFixPointMin
+    clear optimalFixPointMax
     kinkPoint = calcKinkPoint(absTol, relTol);
-    [refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefPoints(absTol, relTol, fixPoint, kinkPoint);
+    //[refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefPoints(absTol, relTol, fixPoint, kinkPoint);
     
 //    //encode
 //    if abs(minData) < kinkPoint then
@@ -27,35 +30,42 @@ function optimalFixPoint = calcOptimalFixPoint(minData, maxData, absTol, relTol)
 //            maxEncData = n0Negative - floor( log(maxData*(1+relTol)/refPointNegative) / log((1+relTol)/(1-relTol)) );
 //        end
 //    end
+
     
-    
-    if abs(minData) < kinkPoint && abs(maxData) < kinkPoint then
-        
-        minRefPointPositive = maxData - absTol;//aber gerade noch grösser!
-        maxRefPointPositive = minData - absTol;//kleiner oder gleich.
-        
-        
-        while(minRefPointPositive > 0)
-            minRefPointPositive = minRefPointPositive - 2*absTol;
+    if abs(maxData) > kinkPoint  then
+        if maxData > 0 then
+            //calc n at maxData
+            n_temp = ceil(-log((kinkPoint + absTol)/ (maxData * (1-relTol))) / log( (1+relTol) / (1-relTol) ));
+        else
+            n_temp = floor(-log((kinkPoint + absTol)/ (maxData * (1+relTol))) / log( (1+relTol) / (1-relTol) ));
         end
         
-        while(maxRefPointPositive < minRefPointPositive)
-            maxRefPointPositive = maxRefPointPositive + 2*absTol; 
-        end
-        
-        disp(minRefPointPositive);
-        disp(maxRefPointPositive);
-        
-        optimalFixPoint = 0; //TBD
-        
-        // n * 2 * absTol + ]minRefPointPositive maxRefPointPositive]
-        
+        //calculate back to the refpoint which is at n=0
+        fixPointMax = maxData * (1-relTol) * ( (1+relTol) / (1-relTol) ) ^ -n_temp;
     else
-        //TBD: other cases
-        optimalFixPoint = 0;
-        
-        disp(kinkPoint)
+        fixPointMax = maxData;
+        disp('test')
     end
+    
+    optimalFixPointMin = fixPointMax - absTol - ceil((fixPointMax - absTol)/(2*absTol))*2*absTol;
+
+    disp(optimalFixPointMin);
+    
+    
+//    if abs(minData) < kinkPoint && abs(maxData) < kinkPoint then
+//        optimalFixPointMin = maxData - absTol - ceil((maxData-absTol)/(2*absTol))*2*absTol;
+//        optimalFixPointMax = minData + absTol - floor((minData+absTol)/(2*absTol))*2*absTol;
+//        //optimalFixPointMin: ist im range
+//        //optimalFixPointMax: gerade nicht mehr im
+//        
+//        disp(optimalFixPointMin);
+//        disp(optimalFixPointMax);
+//    else
+//        //TBD: other cases
+//        //optimalFixPoint = 0;
+//        
+//        disp(-1)
+//    end
     
 endfunction
 
