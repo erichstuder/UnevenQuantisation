@@ -15,11 +15,6 @@ function [refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefP
         //calculate back to the refpoint which is at n=0
         refPointPositive = fixPoint * ( (1+relTol) / (1-relTol) ) ^ -n_temp;
         
-        
-        
-        
-        disp(n_temp)
-        disp(refPointPositive)
         clear n_temp
     end
     
