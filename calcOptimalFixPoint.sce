@@ -7,7 +7,7 @@ function optimalFixPoint = calcOptimalFixPoint(minData, maxData, absTol, relTol)
     clear optimalFixPointMin
     clear optimalFixPointMax
     kinkPoint = calcKinkPoint(absTol, relTol);
-    //[refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefPoints(absTol, relTol, fixPoint, kinkPoint);
+    [refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefPoints(absTol, relTol, fixPoint, kinkPoint);
     
 //    //encode
 //    if abs(minData) < kinkPoint then
@@ -36,16 +36,26 @@ function optimalFixPoint = calcOptimalFixPoint(minData, maxData, absTol, relTol)
         if maxData > 0 then
             //calc n at maxData
             n_temp = ceil(-log((kinkPoint + absTol)/ (maxData * (1-relTol))) / log( (1+relTol) / (1-relTol) ));
+            //disp(n_temp)
+            //disp(maxData)
+            //calculate back to the refpoint which is at n=0
+            fixPointMax = maxData * (1-relTol) * ( (1+relTol) / (1-relTol) ) ^ -n_temp;
         else
-            n_temp = floor(-log((kinkPoint + absTol)/ (maxData * (1+relTol))) / log( (1+relTol) / (1-relTol) ));
+            
+            n_temp = floor(-log((-kinkPoint - absTol)/ (maxData * (1-relTol))) / log( (1+relTol) / (1-relTol) ));
+            //disp(((-kinkPoint - absTol)/ (maxData * (1+relTol))))
+            //disp(n_temp)
+            //disp(n0Negative)
+            fixPointMax = maxData * (1-relTol) * ( (1+relTol) / (1-relTol) ) ^ -n_temp;
         end
         
-        //calculate back to the refpoint which is at n=0
-        fixPointMax = maxData * (1-relTol) * ( (1+relTol) / (1-relTol) ) ^ -n_temp;
+        
     else
         fixPointMax = maxData;
         disp('test')
     end
+    
+    disp(fixPointMax);
     
     optimalFixPointMin = fixPointMax - absTol - ceil((fixPointMax - absTol)/(2*absTol))*2*absTol;
 
