@@ -4,13 +4,13 @@ clear
 exec('encode.sce');
 exec('decode.sce');
 exec('calcKinkPoint.sce');
-exec('calcRefPoints.sce');
+//exec('calcRefPoints.sce');
 
 // init
-relTol = 0.2;
+relTol = 0.5;
 absTol = 1;
-fixPoint = 5.1;
-data = -30:0.001:30;
+fixPoint = 0;
+data = -30:0.01:30;
 
 clear encData;
 clear decData;
