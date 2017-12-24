@@ -4,6 +4,8 @@ function decData = decode(encData, absTol, relTol, fixPoint)
     kinkPoint = calcKinkPoint(absTol, relTol);
     //[refPointPositive, n0Positive, refPointNegative, n0Negative] = calcRefPoints(absTol, relTol, fixPoint, kinkPoint);
     
+    refPoint = ((floor((kinkPoint + absTol) / (2*absTol)) * 2*absTol)) / (1-relTol);
+    
     // decode
     temp = encData * 2*absTol;
     
@@ -15,6 +17,8 @@ function decData = decode(encData, absTol, relTol, fixPoint)
     else
         decData = temp;
     end
+    
+    decData = temp;
     //decode
 //    if(encData <= 0 & encData >= n0Negative) then
 //        decData = refPointPositive + encData * 2*absTol
