@@ -12,11 +12,13 @@ function [encLut, decLut] = lookupMethod_createLuts(absTol, relTol, fixPoint, mi
         y = max(x_intersect + absTol, x_intersect * (1+relTol));
     end
     
+    y = fixPoint;
     while y > minData
         //calculate intersection with lower border
-        x_intersect = min(y - absTol, y / (1+relTol));
-        y = min(x_intersect - absTol, x_intersect * (1-relTol));
+        x_intersect = min(y - absTol, y / (1-relTol));
+        y = min(x_intersect - absTol, x_intersect * (1+relTol));
         
         encLut = [[x_intersect y]; encLut];
     end
+    decLut = encLut;
 endfunction

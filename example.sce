@@ -4,26 +4,29 @@ clear
 exec('encode.sce');
 exec('decode.sce');
 exec('calcKinkPoint.sce');
-//exec('calcRefPoints.sce');
+exec('lookupMethod/lookupMethod_createLuts.sce');
 
 // init
 relTol = 0.5;
 absTol = 1.5;
 fixPoint = 0;
-data = -1:0.01:50;
+data = -40:0.1:50;
+
+[encLut, decLut] = lookupMethod_createLuts(absTol, relTol, fixPoint, min(data), max(data));
 
 clear encData;
 clear decData;
 for i = 1:length(data)
-    //encode
-    encData(i) = encode(data(i), absTol, relTol, fixPoint);
-    
-
-    
-    encData2(i) = ceil( encData(i) / (2*absTol) );
-    
-        //decode
-    decData(i) = decode(encData2(i), absTol, relTol, fixPoint);
+//    //encode
+//    encData(i) = encode(data(i), absTol, relTol, fixPoint);
+//    
+//
+//    
+//    encData2(i) = ceil( encData(i) / (2*absTol) );
+//    
+//        //decode
+//    decData(i) = decode(encData2(i), absTol, relTol, fixPoint);
+    encData(i) = encLut(find(encLut(:,1)>=data(i),1),2);
 end
 
 //plot
@@ -31,5 +34,7 @@ tolerance = max(absTol, abs(data)*relTol)
 data_min = data - tolerance;
 data_max = data + tolerance;
 xdel(winsid());
-plot(data',[data' data_min' data_max' encData encData2 decData])
+//plot(data',[data' data_min' data_max' encData encData2 decData])
+plot(data', [data' data_min' data_max' encData]);
+plot(encLut(:,1), encLut(:,2),'x')
 xgrid(1);
