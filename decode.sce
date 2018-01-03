@@ -11,14 +11,21 @@ function decData = decode(encData, absTol, relTol, fixPoint)
     
     // back transform
     if temp > kinkPoint then
-        decData = kinkPoint * ((1+relTol)/(1-relTol))^((temp-absTol)/kinkPoint - 1) * (1+relTol);
+        // temp = refPoint*(1-relTol) + 2*absTol * log(data/refPoint) / log((1+relTol)/(1-relTol));
+        //temp - refPoint*(1-relTol) = 2*absTol * log(data/refPoint) / log((1+relTol)/(1-relTol))
+        //(temp - refPoint*(1-relTol) / (2*absTol)) * log((1+relTol)/(1-relTol)) = log(data/refPoint)
+        decData = refPoint * ((1+relTol)/(1-relTol)) ^ ((temp - refPoint*(1-relTol)) / (2*absTol)) * (1-relTol)
+        //
+        
+        
+        //decData = kinkPoint * ((1+relTol)/(1-relTol))^((temp-absTol)/kinkPoint - 1) * (1+relTol);
     elseif temp < -kinkPoint then
         decData = -kinkPoint * ((1+relTol)/(1-relTol))^((temp+absTol)/-kinkPoint - 1) * (1+relTol);
     else
         decData = temp;
     end
     
-    decData = temp;
+    //decData = temp;
     //decode
 //    if(encData <= 0 & encData >= n0Negative) then
 //        decData = refPointPositive + encData * 2*absTol

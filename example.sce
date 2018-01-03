@@ -7,7 +7,7 @@ exec('calcKinkPoint.sce');
 //exec('calcRefPoints.sce');
 
 // init
-relTol = 0.4;
+relTol = 0.5;
 absTol = 1.5;
 fixPoint = 0;
 data = -1:0.01:50;
