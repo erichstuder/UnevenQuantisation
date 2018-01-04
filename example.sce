@@ -5,12 +5,14 @@ exec('encode.sce');
 exec('decode.sce');
 exec('calcKinkPoint.sce');
 exec('lookupMethod/lookupMethod_createLuts.sce');
+exec('lookupMethod/lookupMethod_encode.sce');
+exec('lookupMethod/lookupMethod_decode.sce');
 
 // init
 relTol = 0.5;
 absTol = 1.5;
-fixPoint = 0;
-data = -40:0.1:50;
+fixPoint = 1.333;
+data = -40:0.01:50;
 
 [encLut, decLut] = lookupMethod_createLuts(absTol, relTol, fixPoint, min(data), max(data));
 
@@ -26,7 +28,9 @@ for i = 1:length(data)
 //    
 //        //decode
 //    decData(i) = decode(encData2(i), absTol, relTol, fixPoint);
-    encData(i) = encLut(find(encLut(:,1)>=data(i),1),2);
+    encData(i) = lookupMethod_encode(data(i), encLut);
+    decData(i) = lookupMethod_decode(encData(i), decLut);
+    //encData(i) = encLut(find(encLut(:,1)>=data(i),1),2);
 end
 
 //plot
@@ -35,6 +39,6 @@ data_min = data - tolerance;
 data_max = data + tolerance;
 xdel(winsid());
 //plot(data',[data' data_min' data_max' encData encData2 decData])
-plot(data', [data' data_min' data_max' encData]);
-plot(encLut(:,1), encLut(:,2),'x')
+plot(data', [data' data_min' data_max' encData decData]);
+//plot(encLut(:,1), encLut(:,2),'x')
 xgrid(1);
