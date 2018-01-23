@@ -12,10 +12,10 @@ exec('directMethod/directMethod_encode.sce');
 exec('directMethod/directMethod_decode.sce');
 
 // init
-relTol = 0.5;
-absTol = 1.5;
+relTol = 0.27;
+absTol = 1.09;
 fixPoint = 0; // leave on zero for the moment. (directMethod not capable yet)
-data = -5:0.01:40;
+data = -40:0.01:40;
 
 clear encLut;
 clear decLut;

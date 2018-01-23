@@ -1,19 +1,19 @@
 function decData = directMethod_decode(encData, absTol, relTol, fixPoint)
     kinkPoint = calcKinkPoint(absTol, relTol);
     
+    refPointPos =  ((floor((kinkPoint+absTol) / (2*absTol)) * 2*absTol));
+    refPointNeg = -refPointPos//-kinkPoint//-1.5//-((floor((kinkPoint + absTol) / (2*absTol)) * 2*absTol)) / (1-relTol) + 2*absTol;
+
     // decode
     temp = encData * 2*absTol;
     
     // back transform
-    if temp > kinkPoint then
-        //decData = refPoint * ((1+relTol)/(1-relTol)) ^ ((temp - refPoint*(1-relTol) - absTol) / (2*absTol));
-        //temp = refPointPos*(1-relTol) + absTol + 2*absTol * log(data/refPointPos) / log((1+relTol)/(1-relTol));
-        decData = kinkPoint * ((1+relTol)/(1-relTol)) ^ ((temp - kinkPoint*(1-relTol) - absTol) / (2*absTol));
-    elseif temp < -kinkPoint then
-        //decData = -refPoint * ((1+relTol)/(1-relTol))^((temp+absTol)/-kinkPoint - 1) * (1+relTol);
-        decData = -kinkPoint * ((1-relTol)/(1+relTol)) ^ ((temp + kinkPoint*(1-relTol) + absTol) / (2*absTol));
+    if temp > kinkPoint+absTol then
+        decData = refPointPos * ((1+relTol)/(1-relTol)) ^ (encData - refPointPos / (2*absTol));
+    elseif temp < -kinkPoint-absTol then
+        decData = -refPointPos * ((1-relTol)/(1+relTol)) ^ (encData + refPointPos / (2*absTol));
     else
-        decData = temp;
+        decData = encData * 2*absTol;
     end
     
 endfunction
