@@ -1,5 +1,5 @@
 % init
-relTol = 0.27;
+relTol = relTolOptimized;%0.27;
 absTol = 1.09;
 fixPoint = 0; % leave on zero for the moment. (directMethod not capable yet)
 data = -40:0.01:40;

@@ -5,5 +5,9 @@ function kinkPoint = calcKinkPoint(absTol, relTol)
     %This represents the kink point on the positive side
     %kinkPointNegative = - kinkPoint
     
-    kinkPoint = absTol / relTol;
+    if relTol ~= 0
+      kinkPoint = absTol / relTol;
+    else
+      kinkPoint = Inf;
+    end
 endfunction
