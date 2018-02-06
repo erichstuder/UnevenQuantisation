@@ -1,4 +1,4 @@
-function [encLut, decLut] = plotBorders(absTol, relTol, minData, maxData)
+function plotBorders(minData, maxData, absTol, relTol)
 
   delta = (maxData - minData)/1000;
   data = minData:delta:maxData;
