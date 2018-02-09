@@ -1,3 +1,5 @@
+clc
+
 %% signal 1
 name = 'flow_lpm';
 absTol = 5; %lpm
@@ -13,10 +15,16 @@ plotBorders(minData, maxData, absTol, relTol)
 plotQuantized(minData, maxData, absTol, relTol)
 %plotBinary(minData, maxData, absTol, relTol)
 
-relTolOptimized = optimizeRelTol(maxData, absTol, relTol)
+%relTolOptimized = optimizeRelTol(maxData, absTol, relTol)
+%plotBorders(minData, maxData, absTol, relTolOptimized)
+%plotQuantized(minData, maxData, absTol, relTolOptimized)
 
-plotBorders(minData, maxData, absTol, relTolOptimized)
-plotQuantized(minData, maxData, absTol, relTolOptimized)
+absTolOptimized = optimizeAbsTol(maxData, absTol, relTol)
+plotBorders(minData, maxData, absTolOptimized, relTol)
+plotQuantized(minData, maxData, absTolOptimized, relTol)
+
+disp(absTol)
+disp(absTolOptimized)
 
 %% signal 2
 %boolean

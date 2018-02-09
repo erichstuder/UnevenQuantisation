@@ -1,5 +1,5 @@
 function [encLut, decLut] = plotQuantized(minData, maxData, absTol, relTol)
-  delta = (maxData - minData)/1000;
+  delta = (maxData - minData)/10000;
   data = minData:delta:maxData;
 
   for n = 1:length(data)
