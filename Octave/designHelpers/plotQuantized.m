@@ -1,4 +1,9 @@
-function [encLut, decLut] = plotQuantized(minData, maxData, absTol, relTol)
+function plotQuantized(signal)
+  absTol = signal.absTol;
+  relTol = signal.relTol;
+  minData = signal.minData;
+  maxData = signal.maxData;
+  
   delta = (maxData - minData)/10000;
   data = minData:delta:maxData;
 

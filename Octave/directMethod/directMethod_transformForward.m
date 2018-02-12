@@ -3,9 +3,11 @@ function transformed = directMethod_transformForward(data, absTol, relTol, fixPo
     kinkPoint = calcKinkPoint(absTol, relTol);
     
     % calc refPoint
-    if relTol < 1
+    if relTol < 1 || absTol > 0
       refPointPos =  floor((kinkPoint + absTol) / (2*absTol)) * 2*absTol / (1-relTol);
-    else
+    elseif absTol == 0
+      refPointPos = 0;
+    else %relTol == 1;
       refPointPos = Inf;
     end
     refPointNeg = -refPointPos;

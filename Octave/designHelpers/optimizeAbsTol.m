@@ -1,4 +1,8 @@
-function absTolOptimized = optimizeAbsTol(maxData, absTol, relTol)
+function absTolOptimized = optimizeAbsTol(signal)
+    absTol = signal.absTol;
+    relTol = signal.relTol;
+    maxData = signal.maxData;
+    
     targetValue = directMethod_encode(maxData, absTol, relTol, 0);
     absTolOptimized = directMethod_calcAbsTol(maxData, targetValue + 0.5, relTol, 0);
     

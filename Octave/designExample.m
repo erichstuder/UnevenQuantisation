@@ -1,40 +1,47 @@
+%% init
 clc
+close all
+signals = [];
+
 
 %% signal 1
-name = 'flow_lpm';
-absTol = 5; %lpm
-relTol = 0.3; %10%
-minData = -100; %lpm
-maxData = -minData; %lpm
+signal1.name = 'flow_lpm';
+signal1.absTol = 5; %lpm
+signal1.relTol = 0.3; %10%
+signal1.minData = -100; %lpm
+signal1.maxData = -signal1.minData; %lpm
+signals = [signals signal1];
 
-close all
 figure
 hold on
 grid on
-plotBorders(minData, maxData, absTol, relTol)
-plotQuantized(minData, maxData, absTol, relTol)
-%plotBinary(minData, maxData, absTol, relTol)
+plotBorders(signal1)
+plotQuantized(signal1)
+%plotBinary(signal1)
 
-%relTolOptimized = optimizeRelTol(maxData, absTol, relTol)
-%plotBorders(minData, maxData, absTol, relTolOptimized)
-%plotQuantized(minData, maxData, absTol, relTolOptimized)
+signal1.relTol = optimizeRelTol(signal1);
+plotBorders(signal1)
+plotQuantized(signal1)
 
-absTolOptimized = optimizeAbsTol(maxData, absTol, relTol)
-plotBorders(minData, maxData, absTolOptimized, relTol)
-plotQuantized(minData, maxData, absTolOptimized, relTol)
+%signal1.absTol = optimizeAbsTol(signal1);
+%plotBorders(signal1)
+%plotQuantized(signal1)
 
-disp(absTol)
-disp(absTolOptimized)
 
 %% signal 2
-%boolean
-%name = 'flowValid';
+signal2.name = 'pressDiff_Pa';
+signal2.absTol = 50; %Pa
+signal2.relTol = 0; % no relTol
+signal2.minData = -500; %Pa
+signal2.maxData = -signal2.minData; %Pa
+signals = [signals signal1];
 
+figure
+hold on
+grid on
+plotBorders(signal2)
+plotQuantized(signal2)
 
-
-
-%% signal 3
-%enum
-
-%% signal 4
-%integer
+signal2.absTol = optimizeAbsTol(signal2);
+plotBorders(signal2)
+plotQuantized(signal2)

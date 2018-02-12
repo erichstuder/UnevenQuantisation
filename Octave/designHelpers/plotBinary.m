@@ -1,4 +1,9 @@
-function [encLut, decLut] = plotBinary(minData, maxData, absTol, relTol)
+function [encLut, decLut] = plotBinary(signal)
+  absTol = signal.absTol;
+  relTol = signal.relTol;
+  minData = signal.minData;
+  maxData = signal.maxData;
+  
   delta = (maxData - minData)/1000;
   data = minData:delta:maxData;
 
