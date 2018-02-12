@@ -34,7 +34,7 @@ signal2.absTol = 50; %Pa
 signal2.relTol = 0; % no relTol
 signal2.minData = -500; %Pa
 signal2.maxData = -signal2.minData; %Pa
-signals = [signals signal1];
+signals = [signals signal2];
 
 figure
 hold on
