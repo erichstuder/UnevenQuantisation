@@ -19,7 +19,7 @@ plotBorders(signal1)
 plotQuantized(signal1)
 %plotBinary(signal1)
 
-signal1.relTol = optimizeRelTol(signal1);
+signal1.relTol = optimizeRelTol(signal1, 6);
 plotBorders(signal1)
 plotQuantized(signal1)
 
@@ -45,3 +45,7 @@ plotQuantized(signal2)
 signal2.absTol = optimizeAbsTol(signal2);
 plotBorders(signal2)
 plotQuantized(signal2)
+
+
+%% finally
+
