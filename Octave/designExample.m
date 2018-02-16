@@ -42,7 +42,7 @@ grid on
 plotBorders(signal2)
 plotQuantized(signal2)
 
-signal2.absTol = optimizeAbsTol(signal2);
+signal2.absTol = optimizeAbsTol(signal2, 2);
 plotBorders(signal2)
 plotQuantized(signal2)
 
