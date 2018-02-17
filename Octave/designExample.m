@@ -10,7 +10,6 @@ signal1.absTol = 5; %lpm
 signal1.relTol = 0.3; %10%
 signal1.minData = -100; %lpm
 signal1.maxData = -signal1.minData; %lpm
-signals = [signals signal1];
 
 figure
 hold on
@@ -19,8 +18,8 @@ plotBorders(signal1)
 plotQuantized(signal1)
 %plotBinary(signal1)
 
-%signal1.relTol = optimizeRelTol(signal1, 6);
-signal1.maxData = optimizeMaxData(signal1, 0);
+signal1.relTol = optimizeRelTol(signal1, 0);
+%signal1.maxData = optimizeMaxData(signal1, 0);
 signal1.minData = -signal1.maxData;
 plotBorders(signal1)
 plotQuantized(signal1)
@@ -29,6 +28,7 @@ plotQuantized(signal1)
 %signal1.absTol = optimizeAbsTol(signal1);
 %plotBorders(signal1)
 %plotQuantized(signal1)
+signals = [signals signal1];
 
 
 %% signal 2
@@ -37,7 +37,6 @@ signal2.absTol = 50; %Pa
 signal2.relTol = 0; % no relTol
 signal2.minData = -500; %Pa
 signal2.maxData = -signal2.minData; %Pa
-signals = [signals signal2];
 
 figure
 hold on
@@ -48,7 +47,22 @@ plotQuantized(signal2)
 signal2.absTol = optimizeAbsTol(signal2, 2);
 plotBorders(signal2)
 plotQuantized(signal2)
-
+signals = [signals signal2];
 
 %% finally
-
+totalBits = 1;
+for n = 1:length(signals)
+  absTol = signals(n).absTol;
+  relTol = signals(n).relTol;
+  minData = signals(n).minData;
+  maxData = signals(n).maxData;
+  
+  minBin = directMethod_encode(minData, absTol, relTol, 0);
+  maxBin = directMethod_encode(maxData, absTol, relTol, 0);
+  counts = maxBin - minBin + 1;
+  counts
+  n
+  totalBits = totalBits * counts;
+end
+totalBits
+totalBits/2^ceil(log2(totalBits))
