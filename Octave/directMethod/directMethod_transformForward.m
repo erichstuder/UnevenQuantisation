@@ -1,5 +1,9 @@
 function transformed = directMethod_transformForward(data, absTol, relTol, fixPoint)
     
+    if fixPoint ~= 0
+      error('fixPoint not yet implemented');
+    end
+    
     kinkPoint = calcKinkPoint(absTol, relTol);
     
     % calc refPoint

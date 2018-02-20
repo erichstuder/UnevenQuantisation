@@ -49,7 +49,7 @@ plotBorders(signal2)
 plotQuantized(signal2)
 signals = [signals signal2];
 
-%% finally
+%% global examination
 totalBits = 1;
 for n = 1:length(signals)
   absTol = signals(n).absTol;
@@ -66,3 +66,7 @@ for n = 1:length(signals)
 end
 totalBits
 totalBits/2^ceil(log2(totalBits))
+
+
+%% create the lut
+[encLut, decLut] = directMethod_createLuts(signal1.absTol, signal1.relTol, 0, signal1.minData, signal1.maxData)
