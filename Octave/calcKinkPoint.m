@@ -10,4 +10,3 @@ function kinkPoint = calcKinkPoint(absTol, relTol)
     else
       kinkPoint = Inf;
     end
-endfunction

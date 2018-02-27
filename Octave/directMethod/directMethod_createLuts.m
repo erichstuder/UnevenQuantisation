@@ -30,5 +30,4 @@ function [encLut, decLut] = directMethod_createLuts(absTol, relTol, fixPoint, mi
   end
 
   %encLut = [directLut(:,1)'; [0:length(directLut(:,1))-1]]';
-  %decLut = encLut;
-endfunction
+  decLut = encLut;

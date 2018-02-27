@@ -14,6 +14,4 @@ function decData = directMethod_decode(encData, absTol, relTol, fixPoint)
     else
         decData = temp;
     end
-    
-endfunction
 

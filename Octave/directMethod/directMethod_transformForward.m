@@ -31,5 +31,3 @@ function transformed = directMethod_transformForward(data, absTol, relTol, fixPo
     end
     
     transformed = temp / (2*absTol);
-    
-endfunction
