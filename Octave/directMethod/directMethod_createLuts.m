@@ -30,4 +30,8 @@ function [encLut, decLut] = directMethod_createLuts(absTol, relTol, fixPoint, mi
   end
 
   %encLut = [directLut(:,1)'; [0:length(directLut(:,1))-1]]';
+  
   decLut = encLut;
+  for n=1:length(encLut)
+    decLut(n,1) = directMethod_decode(encLut(n,2), absTol, relTol, 0);
+  end
