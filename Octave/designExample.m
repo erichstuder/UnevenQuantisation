@@ -18,8 +18,8 @@ plotBorders(signal1)
 plotQuantized(signal1)
 %plotBinary(signal1)
 
-signal1.relTol = optimizeRelTol(signal1, 0);
-%signal1.maxData = optimizeMaxData(signal1, 0);
+%signal1.relTol = optimizeRelTol(signal1, 0);
+signal1.maxData = optimizeMaxData(signal1, 0);
 signal1.minData = -signal1.maxData;
 plotBorders(signal1)
 plotQuantized(signal1)

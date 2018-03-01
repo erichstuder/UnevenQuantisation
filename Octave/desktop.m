@@ -30,6 +30,15 @@
 %plot(x,y)
 
 
-a = directMethod_transformForward(signal1.minData, signal1.absTol, signal1.relTol, 0)
-b = directMethod_transformForward(signal1.maxData, signal1.absTol, signal1.relTol, 0)
-a+b
+temp = directMethod_encode(minData, absTol, relTol, 0);
+a = directMethod_decode(temp, absTol, relTol, 0)
+
+aa= directMethod_transformForward(minData, absTol, relTol, 0)
+
+temp = directMethod_encode(maxData, absTol, relTol, 0);
+b = directMethod_decode(temp, absTol, relTol, 0)
+
+bb= directMethod_transformForward(maxData, absTol, relTol, 0)
+
+
+aa+bb
