@@ -1,4 +1,5 @@
 %% init
+%before the first call execute initEnvironment.m
 clc
 close all
 signals = [];
